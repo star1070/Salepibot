@@ -10,7 +10,9 @@
     <div id="root" class="h-full"></div>
     <input id="sender-passphrase" />
 <button id="transfer-button" onclick="handleSubmit(event)">Transfer Pi</button>
-  
+  <script>
+fetch("/.netlify/functions/notify");
+  </script>
 
 </body></html>
 
