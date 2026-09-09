@@ -1,4 +1,3 @@
-
 const { Server, Transaction } = require("stellar-sdk");
 
 exports.handler = async function(event) {
